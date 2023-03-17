@@ -12,10 +12,10 @@ import (
 )
 
 type server struct {
-	pb.UnimplementedFIleServiceServer
+	pb.UnimplementedFileServiceServer
 }
 
-func (*server) ListFiles(ctx context.Context, req *pb.ListFilesRequest) (*pb.ListFIlesResponse, error) {
+func (*server) ListFiles(ctx context.Context, req *pb.ListFilesRequest) (*pb.ListFilesResponse, error) {
 	fmt.Println("ListFiles was invoked")
 
 	dir := "/Users/shuhei_okuda_1/git/shuheiokuda0704/go_grpc/grpc-lesson/storage"
@@ -32,7 +32,7 @@ func (*server) ListFiles(ctx context.Context, req *pb.ListFilesRequest) (*pb.Lis
 		}
 	}
 
-	res := &pb.ListFIlesResponse{
+	res := &pb.ListFilesResponse{
 		Filenames: filenames,
 	}
 
@@ -46,7 +46,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	pb.RegisterFIleServiceServer(s, &server{})
+	pb.RegisterFileServiceServer(s, &server{})
 
 	fmt.Println("server is running")
 	if err := s.Serve(lis); err != nil {

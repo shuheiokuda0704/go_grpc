@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// FIleServiceClient is the client API for FIleService service.
+// FileServiceClient is the client API for FileService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type FIleServiceClient interface {
-	ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (*ListFIlesResponse, error)
+type FileServiceClient interface {
+	ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (*ListFilesResponse, error)
 }
 
-type fIleServiceClient struct {
+type fileServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewFIleServiceClient(cc grpc.ClientConnInterface) FIleServiceClient {
-	return &fIleServiceClient{cc}
+func NewFileServiceClient(cc grpc.ClientConnInterface) FileServiceClient {
+	return &fileServiceClient{cc}
 }
 
-func (c *fIleServiceClient) ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (*ListFIlesResponse, error) {
-	out := new(ListFIlesResponse)
-	err := c.cc.Invoke(ctx, "/file.FIleService/ListFiles", in, out, opts...)
+func (c *fileServiceClient) ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (*ListFilesResponse, error) {
+	out := new(ListFilesResponse)
+	err := c.cc.Invoke(ctx, "/file.FileService/ListFiles", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// FIleServiceServer is the server API for FIleService service.
-// All implementations must embed UnimplementedFIleServiceServer
+// FileServiceServer is the server API for FileService service.
+// All implementations must embed UnimplementedFileServiceServer
 // for forward compatibility
-type FIleServiceServer interface {
-	ListFiles(context.Context, *ListFilesRequest) (*ListFIlesResponse, error)
-	mustEmbedUnimplementedFIleServiceServer()
+type FileServiceServer interface {
+	ListFiles(context.Context, *ListFilesRequest) (*ListFilesResponse, error)
+	mustEmbedUnimplementedFileServiceServer()
 }
 
-// UnimplementedFIleServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedFIleServiceServer struct {
+// UnimplementedFileServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedFileServiceServer struct {
 }
 
-func (UnimplementedFIleServiceServer) ListFiles(context.Context, *ListFilesRequest) (*ListFIlesResponse, error) {
+func (UnimplementedFileServiceServer) ListFiles(context.Context, *ListFilesRequest) (*ListFilesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListFiles not implemented")
 }
-func (UnimplementedFIleServiceServer) mustEmbedUnimplementedFIleServiceServer() {}
+func (UnimplementedFileServiceServer) mustEmbedUnimplementedFileServiceServer() {}
 
-// UnsafeFIleServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to FIleServiceServer will
+// UnsafeFileServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to FileServiceServer will
 // result in compilation errors.
-type UnsafeFIleServiceServer interface {
-	mustEmbedUnimplementedFIleServiceServer()
+type UnsafeFileServiceServer interface {
+	mustEmbedUnimplementedFileServiceServer()
 }
 
-func RegisterFIleServiceServer(s grpc.ServiceRegistrar, srv FIleServiceServer) {
-	s.RegisterService(&FIleService_ServiceDesc, srv)
+func RegisterFileServiceServer(s grpc.ServiceRegistrar, srv FileServiceServer) {
+	s.RegisterService(&FileService_ServiceDesc, srv)
 }
 
-func _FIleService_ListFiles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileService_ListFiles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListFilesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FIleServiceServer).ListFiles(ctx, in)
+		return srv.(FileServiceServer).ListFiles(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/file.FIleService/ListFiles",
+		FullMethod: "/file.FileService/ListFiles",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FIleServiceServer).ListFiles(ctx, req.(*ListFilesRequest))
+		return srv.(FileServiceServer).ListFiles(ctx, req.(*ListFilesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// FIleService_ServiceDesc is the grpc.ServiceDesc for FIleService service.
+// FileService_ServiceDesc is the grpc.ServiceDesc for FileService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var FIleService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "file.FIleService",
-	HandlerType: (*FIleServiceServer)(nil),
+var FileService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "file.FileService",
+	HandlerType: (*FileServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "ListFiles",
-			Handler:    _FIleService_ListFiles_Handler,
+			Handler:    _FileService_ListFiles_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

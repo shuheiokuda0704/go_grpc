@@ -5,10 +5,10 @@ package file;
 option go_package = "./pb";
 
 message ListFilesRequest {};
-message ListFIlesResponse {
+message ListFilesResponse {
     repeated string filenames = 1;
 };
 
-service FIleService {
-    rpc ListFiles (ListFilesRequest) returns (ListFIlesResponse);
+service FileService {
+    rpc ListFiles (ListFilesRequest) returns (ListFilesResponse);
 }
